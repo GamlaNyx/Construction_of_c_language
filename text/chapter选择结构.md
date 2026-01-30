@@ -6,7 +6,7 @@
 
 ## 1. if语句
 
-if()是作为选择结构的重要标志，只有满足特定的条件，才会放行执行后面的操作。
+if( )是作为选择结构的重要标志，只有满足特定的条件，才会放行执行后面的操作。
 
 ### 1.1 if语句的三种基础表达形式
 
@@ -15,11 +15,11 @@ if()是作为选择结构的重要标志，只有满足特定的条件，才会�
 if语句的语法形式如下：
 
 ```C
-if(表达式)
+if(表达式)                          //条件表达式结果必须为bool类型
     <语句>
 ```
 
-![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=YzM4ODQzMjMzMWQ4ZjY0ZTJhYzk3Yjc3MzMyOWNlMmJfcEV1MlVVa1lobkVBSFhETloxS2RITXF4eklPeHplYnNfVG9rZW46QVY2V2I1aVlKb1hzQmZ4eUhjRGMxTDFKbjNiXzE3Njk1NzU3NDE6MTc2OTU3OTM0MV9WNA)
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQxZWZlY2FjNjI4MGI5YTk2NzhhNzNmZjQ5ZDE5Y2RfcUQ3M1RhYmZaNm9lNU1OUFhFTkxyalQ3VnJOR2RpSHNfVG9rZW46VEs3cGI3VkpXb1R1SGV4NGtwVWNlRmdSbmFoXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
 
 **执行流程：** 计算机在遇到 `if` 时，首先会计算圆括号内 `表达式` 的值：
 
@@ -28,18 +28,29 @@ if(表达式)
 
 **这里有两个关键点需要注意：**
 
--  在C语言中，0为假，非0表示真，也就是表达式的结果如果是0，则语句不执行，表达式的结果如果不是0，则语句执行。
-- 一般情况，如果if后的语句只有一条， 不需要使用{}；如果if后的语句是复合语句(即语句组)，那么需要用{}括起。（在此建议无论有几条语句都使用{}括起，这样形式更美观。）
+-  在C语言中，0为假（false），非0表示真（true），也就是表达式的结果如果是0，则语句不执行，表达式的结果如果不是0，则语句执行。
+- 一般情况，如果 if 后的语句只有一条， 不需要使用 {} ；如果 if后的语句是复合语句(即语句组)，那么需要用 {} 括起。（在此建议无论有几条语句都使用{}括起，这样形式更美观。）
 
 例1：输入一个整数，判断是否为奇数。
 
 ```C
 //输入一个整数，判断是否为奇数
+#include <stdio.h>                        
+int main()
+{                                       //判断一个整数是否为奇数，即判断是否能被 2 整除余 1 
+    int n;
+    scanf("%d", &n);                    
+ //输入需要判断的整数                                       
+ //提取关键字“能否”，所以该处可以使用if语句
+    if(n % 2 == 1) {                    //对 2 求余并输出判断结果
+        printf("该整数是奇数");
+    }
+    return 0;
+}                                       
+ //函数结束
 ```
 
-代码部分，记得写一些注释，然后在代码下面进行解释
-
-这里也要一个流程图，毕竟刚接触if
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=MWZkMzQ4ZDVmMzQ4ZGRkZWVhYTAwNGZhYTYyY2ZmN2NfaWpKUHVnNlR2SW1wQ3U4SHAxWmtuVXpYNlhRRVBQOHpfVG9rZW46WHNtdWJaZXlCbzlxTGV4cUxhU2NHd09kbkhVXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
 
 #### 1.1.2双分支if...else...
 
@@ -56,20 +67,88 @@ else
     <语句2>
 ```
 
-流程图
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=YTdkOGE5Yzk2YTFlNWQ0YTk1OWJmMjVhMGFkZjI0YjVfeEdBcUEzd2c3ZnVCTlhwYVpQUHdUM001WWlyYkcyODdfVG9rZW46Vk9zeWI0Z1dub2VCNEt4b3I2ZGMzbk1PbkFLXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
 
 如果表达式为真（true），则执行语句 <语句1>，然后执行if语句后的其他语句； 如果表达式非真（false），则执行语句 <语句2>，然后执行if语句后的其他语句。
+
+默认if和else语句都只控制一条语句，例如：
+
+```C++
+#include <stdio.h>
+int main()
+{   
+    int age;
+    scanf("%d",&a);
+    
+    if(a >= 18) 
+        printf ("成年")；
+        printf ("可以谈恋爱了")；    
+        
+    return 0;
+}
+```
+
+上面这段代码，输出后你会发现，不论if语句为真还是为假,“可以谈恋爱了”都会打印在屏幕上。这是因为if语句只能控制一条语句，就是printf("成年")，对于printf("可以谈恋爱了")，是独立在的，不论if为真还是为假，都会执行。面对这样的情况，我们该怎么办呢？我们就要使用{}。
+
+```C++
+#include <stdio.h>
+int main()
+{   
+    int age;
+    scanf("%d",&a);
+    
+    if(a >= 18) {
+        printf ("成年")；
+        printf ("可以谈恋爱了")；
+        }
+        
+    return 0;
+}
+```
 
 例2：输入一个整数，判断是否为奇数，如果是奇数，打印奇数；如果是偶数，打印偶数。
 
 ```C++
-
+#include <stdio.h>
+int main()
+{
+    int n;                                                                                 
+    scanf("%d", &n);                              //定义并输入要判断的整数
+    
+    if(n % 2 == 1) {                              //使用if语句，判断(n%2==1?) 
+            printf("该整数是奇数");
+    }                                             //打印判断结果
+    else {                                        //若n除以2的余数不为1,即if语句的判断结果为非真 
+        printf("该整数为偶数");                    //可以使用else语句执行打印偶数的判断结果 
+    }               
+                                                                                                           
+        return 0;                                 
+}
+//函数结束 
+    
 ```
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=YmYwZWVhYzM5ZWU0NzVhOWRiNWU0Zjg0ZjdlZmQwYzlfTEthYkd2T3JHWFdESGpCMVJjTjBPMkZ1dkVWWXNobXpfVG9rZW46WFNEaWJDS0NPb1N4Y2J4aEF1c2NmTTFYbk5uXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
 
 例3：输入一个非零整数，判断是正数还是负数，并输出对应结果。
 
 ```C++
-
+#include <stdio.h>
+int main()
+{
+        int n;
+        scanf("%d", &n);                    //输入要判断的非零整数
+        
+        if(n > 0) {                        //使用if语句判断该数是否大于零
+                printf("该非零整数为正数");  //打印判断结果
+        }
+        else {                              //若if判断解过为非真,则使用else语句打印该数为负数的判断结果
+                printf("该非零整数为负数");
+        }
+        
+        return 0;                           
+} 
+//函数结束
 ```
 
 #### 1.1.3 多分支if...else,if...else
@@ -78,9 +157,11 @@ else
 // 基础结构
 if (条件表达式1) {
     // 条件1为true时执行的语句块
-} else if (条件表达式2) {
+}
+else if (条件表达式2) {
     // 条件1为false、条件2为true时执行的语句块
-} else if (条件表达式3) {
+} 
+else if (条件表达式3) {
     // 条件1/2为false、条件3为true时执行的语句块
 } 
 // 可继续追加N个else if分支
@@ -89,70 +170,208 @@ else {
 }
 ```
 
-从上到下顺序匹配条件，匹配首为真的条件后执行对应if块，后续所有分支直接跳过；所有条件均为假时执行else块；else可省略，省略后无匹配条件则跳过所有分支
+从上到下顺序匹配条件，匹配首为真的条件后执行对应if块，后续所有分支直接跳过；所有条件均为假时执行else
+
+块;else可省略，省略后无匹配条件则跳过所有分支。平级排列，无嵌套层级，else if可无限追加，最后的else为兜
+
+底。
 
 ### 1.2嵌套if
 
-这块用例子引出嵌套结构
+在此处我们引入一个场景问题，来帮助我们更好的理解和学习嵌套if的内容：  我们要判断一个人的成绩属于哪一等级时，首先要判断其成绩是否及格，若及格再判断是否为良好或优秀；若不及格，则直接输出结果。
+
+这种的分层判断，单层if无法完成，必须使用嵌套if实现。 
 
 #### 1.2.1基础型（外层单分支 → 内层单分支）
 
-```C++
+这是嵌套if最基础的形式：只有外层条件成立，才会执行内层if判断；外层条件不成立，内层代码直接跳过。适用于先判断大前提，再做一次细分判断的场景。
 
+```C++
+if (外层条件表达式) {
+    // 外层条件为true时，才执行内层if
+    if (内层条件表达式) {
+        // 内层条件为true的执行语句块
+    }
+}
+```
+
+外层判断 “是否及格 ” 的单分支大前提，内层在及格前提下，做一次简单细分判断，适用于最基础的嵌套场景。
+
+```C++
+int score = 85; // 示例分数
+
+if (score >= 60) {  // 外层：大前提——是否及格
+    if (score >= 80) {  // 内层：及格后细分——是否达到良好及以上
+        printf("及格，等级良好");
+    }
+}
+
+// 输出：及格，等级良好
 ```
 
 #### 1.2.2通用型（外层双分支 → 内层双/多分支）
 
-```C++
+基于基础型扩展：
 
+```C++
+if (外层条件表达式) {
+    // 外层true分支：嵌套任意if结构（单/双/多分支均可）
+    if (内层条件1) {
+        内层语句块1;
+    } 
+    else if (内层条件2) {
+        内层语句块2;
+    }
+    else {
+        内层语句块3;
+    }
+}
+else {
+    // 外层false分支：可选嵌套if，也可直接写普通语句
+    外层false的执行语句块;
+}
+```
+
+外层用 else 覆盖 不及格 场景，实现全情况判断；内层用 else if 细分良好/优秀，满足及格后的等级划分需求。
+
+```C++
+int score = 92; // 示例分数
+
+if (score >= 60) {  // 外层条件表达式：判断是否及格
+    // 外层true分支：嵌套多分支，细分优秀/良好/仅及格
+    if (score >= 90) { 
+        printf("及格，等级优秀"); // 内层语句块1：满足优秀条件
+    }
+    else if (score >= 80) { 
+        printf("及格，等级良好"); // 内层语句块2：满足良好条件
+    }
+    else {
+        printf("及格"); // 内层语句块3：仅及格，未达良好
+    }
+}
+else {
+    // 外层false分支：直接执行普通语句
+    printf("不及格"); // 外层false执行语句块
+}
+
+// 输出：及格，等级优秀
 ```
 
 #### 1.2.3多层嵌套（最多建议3层）
 
-我们接着看下面这道题
-
-写一下判断一年是否为闰年的题干，提示一下是否为闰年的条件
-
-```C
-
-
-```
-
-默认if和else语句都只控制一条语句，例如：
+当需要三层递进判断时，采用以下嵌套结构，保证逻辑清晰且易读：
 
 ```C++
- #include <stdio.h>
- int main()
- {   
-     int age;
-     scanf("%d",&a);
-     if(a>=18)
-         printf ("成年")；
-         printf ("可以谈恋爱了")；
-     return 0;
- }
+if (外层条件1) {
+    // 外层true分支：嵌套中层if
+    if (中层条件2) {
+        // 中层true分支：嵌套内层if
+        if (内层条件3) {
+            三层都真执行语句;
+        } 
+        else {
+            前两层真执行语句;
+        }
+    } 
+    else {
+        仅外层真执行语句;
+    }
+} 
+else {
+    外层假执行语句;
+}
 ```
 
-上面这段代码，输出后你会发现，不论if语句为真还是为假,“可以谈恋爱了”都会打印在屏幕上。这是因为if语句只能控制一条语句，就是printf("成年")，对于printf("可以谈恋爱了")，是独立在的，不论if为真还是为假，都会执行。面对这样的情况，我们该怎们办呢？我们就要使用{}。
+结合 及格→良好→优秀 三层判定需求，对应代码实现如下：
 
 ```C++
- #include <stdio.h>
- int main()
- {   
-     int age;
-     scanf("%d",&a);
-     if(a>=18) {
-         printf ("成年")；
-         printf ("可以谈恋爱了")；
-         }
-     return 0;
- }
+int score = 92;
+
+if (score >= 60) {  // 外层条件1：是否及格
+    // 外层true：嵌套中层判良好
+    if (score >= 80) {
+        // 中层true：嵌套内层判优秀
+        if (score >= 90) {
+            printf("及格，等级优秀"); // 三层都真
+        } 
+        else {
+            printf("及格，等级良好"); // 前两层真
+        }
+    } 
+    else {
+        printf("及格"); // 仅外层真
+    }
+} 
+else {
+    printf("不及格"); // 外层假
+}
+
+// 输出：及格，等级优秀
 ```
 
-else悬空问题（该内容为if嵌套下设易错点）
+我们接着看下面这道题：
+
+从键盘输入一个整数年份，判断该年份是否为闰年，若是则输出“该年份是闰年”，否则输出“该年份不是闰年”。（闰年判定规则：能被4整除但不能被100整除，或能被400整除的年份为闰年。）
+
+（代码）写一下判断一年是否为闰年的代码，先不要用&&和||，用嵌套写
 
 ```C++
+#include <stdio.h>
+int main()
+{
+    int year;
+    scanf("%d", &year);
+    
+    if(year % 4 == 0) {                //外层条件1：是否能被4整除
+        if(year % 400 == 0) {          //内层条件1：能被400整除         
+            printf("该年份是闰年");
+        }
+        else if(year % 100 != 0 ) {    //内层条件2:不能被100整除
+            printf("该年份是闰年");
+            }
+    }        
+    else {                            //若不满足外层条件1:可以直接得出该年份不是闰年
+        printf("该年份不是闰年");
+    }
+    
+    return 0;                 
+}                                      
+//函数结束
+  
+```
 
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTRkMzRmNzVmMmU5NzQxODBjNWQ0ZGY1MzNlYjNlYTNfYTA1NzFIREJJUXBBeTBISzNUZGxyWFl3N2h2VncwYWJfVG9rZW46TUVRSWJHM05Ub1ROd094Z1lLZ2NITG5RbmNjXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+#### 1.2.4 else悬空问题
+
+else悬空是C语言语法陷阱，指嵌套if语句未用大括号{}界定代码块时，else无法按编写者预期匹配if，引发逻辑错误
+
+的现象。  C语言编译器不识别代码缩进（仅为可读性），else默认与离它最近、无对应else的if绑定，此规则为语法硬性规定，
+
+与编写意图无关。
+
+```C++
+// 视觉上：以为else匹配外层if(a>0)
+// 实际中：else匹配内层if(b>0)，逻辑完全偏离预期
+if (a > 0)
+    if (b > 0)
+        printf("a和b都大于0");
+else
+    printf("a不大于0");
+```
+
+给所有if/else语句（无论分支内有几行代码）添加大括号 {} ，明确代码块范围，强制 else 按编写意图匹配对应 if ，
+
+从根源避免悬空。
+
+```C++
+// 正确写法：大括号界定层级，else精准匹配外层if(a>0)
+if (a > 0) {
+    if (b > 0)
+        printf("a和b都大于0");
+} else {
+    printf("a不大于0");
+}
 ```
 
 ## 2. 关系运算符
@@ -180,20 +399,599 @@ C 语言提供了以下 6 种关系运算符：
 
 这6种关系运算符却不是完全同一级别的，在`1 == 3 > 2`这个表达式中返回的是真，原因是计算机会先计算`3 > 2`，返回了1（true），而`1 == 1`会依旧返回真，所以逻辑上`1 == 3 > 2`和`1 == (3 > 2)`是相同的，在我们日常练习中，应尽量使用这种`1 == (3 > 2)`明确指出运算顺序的形式，减少可能出现的错误
 
-代码自己设计一道例题吧，或者问问ai，关于关系运算符的
+（代码）代码自己设计一道例题吧，或者问问ai，关于关系运算符的
+
+随便用两个数试试这些关系运算符吧
+
+```C++
+#include <stdio.h>
+int main()
+{
+    //已5和3为例
+    int a = 5, b = 3;
+    printf("a > b的结果： %d\n", a > b);
+    //输出:a > b的结果： 1          
+    printf("a < b的结果: %d\n", a < b);
+    //a < b的结果: 0
+    printf("a >= b的结果: %d\n", a >= b);
+    //a >= b的结果: 1
+    printf("a <= b的结果: %d\n", a <= b);
+    //a <= b的结果: 0
+    printf("a == b的结果: %d\n", a == b);
+    //a == b的结果：0
+    printf("a != b的结果: %d\n", a != b);
+    //a != b的结果：1
+    return 0;
+}
+//函数结束
+    
+```
 
 ## 3. 条件运算符
 
+在刚刚掌握的 `if...else` 语句中，我们发现它是处理分支逻辑的“万能钥匙”。但在某些简单的场景下（比如仅仅是给变量赋值），写 4、5 行代码显得有点“杀鸡用牛刀”了。
+
+C 语言内部有一个简洁的选择运算——**条件运算符**。它是 C 语言中唯一一个需要三个操作数的运算符，所以通常被称为**三目运算符**。
+
+它的符号由两部分组成： `?:`
+
+**语法格式：**
+
+```C
+表达式1 ? 表达式2 : 表达式3
+```
+
+你可以把它看作是一个精简版的 `if...else`。
+
+- **表达式1** 是**条件**（相当于 `if` 括号里的内容）。
+- **?** 像是在问：“这个条件成立吗？”
+- **表达式2** 是条件**成立**时取的值。
+- **:** 相当于“否则”。
+- **表达式3** 是条件**不成立**时取的值。
+
+**举个例子：求 a 和 b 谁更大**
+
+```C
+max = (a > b) ? a : b;
+```
+
+括号可省略，但加上安全又易读
+
+**传统的 if-else 写法：**
+
+```C
+if (a > b) {
+    max = a;
+    } 
+else {
+    max = b;
+    }
+```
+
 ## 4. 逻辑运算符
+
+在前面的学习中，我们能够判断单一的条件，比如 `age >= 18`。 但在实际应用中，很多时候我们需要同时满足**多个条件**。
+
+比如：要判断一个人是否是“青少年”（年龄在 13 到 19 岁之间）。 在数学里，我们习惯写成：13≤age≤19。 **但是在 C 语言中，绝不能这样写！** 计算机一次只能处理一个关系，它看不懂这种连续的写法。
+
+为了解决这个问题，我们需要用**逻辑运算符**把两个关系式联系在一起，表达“并且”、“或者”这样的逻辑。
+
+C 语言提供了 3 种逻辑运算符：
+
+| 运算符 | 含义   | 理解      | 规则           |
+| ------ | ------ | --------- | -------------- |
+| &&     | 逻辑与 | 并且(And) | 全真则为真     |
+| \|\|   | 逻辑或 | 或者(Or)  | 有真即为真     |
+| ！     | 逻辑非 | 取反(Not) | 真为假，假为真 |
 
 ### 4.1逻辑取反运算符！
 
+**定义**： 用于对操作数的逻辑值取反。如果操作数为真，结果为 0；如果操作数为假，结果为 1。
+
+**运算规则**：
+
+- `! (非0值)` → 0
+- `! (0)` → 1
+
 ### 4.2逻辑与运算符
 
+**定义：**
+
+ `&&`作为C语言中的双目运算符，主要用于判断 “两个条件是否同时成立”，且最终返回一个`int`类型的布尔结果。
+
+**运算规则：**
+
+  可以简记为"全真为真，一假则假”，即只有运算符所对应的两个条件同时为真，同时成立时，结果才会判定为真，只要有一个条件为假，那么结果就会被判定为假。
+
+  对于操作数的真假值判定，同样遵循C 语言通用规则 ——**0 为假，任意非 0 值为真**（操作数可以是 `int`、`float`、指针、关系表达式等，只要能判定真假）
+
+  注意&&运算符遵循左结合性，即多个`&&`连续使用时，从左到右依次计算。
+
+```C++
+#include <stdio.h>
+
+int main()
+{
+    // 定义变量，使用明确的命名
+    int number = 24;
+    int min_value = 10;
+    int max_value = 50;
+
+    // --- 场景 1：全真为真 ---
+    // 这里有三个条件：大于10、小于50、是偶数（对2取余等于0）
+    // 规范：if 前后留空行，运算符两边加空格，逗号后加空格
+    
+    if (number > min_value && number < max_value && number % 2 == 0) {
+        printf("%d 既在 %d 到 %d 之间，也是一个偶数。\n", number, min_value, max_value);
+    }
+
+    // --- 场景 2：一假则假 (演示左结合性与短路) ---
+    // 我们换一个数字测试
+    int test_number = 5;
+    int check_mark = 0;
+
+    // 逻辑分析：
+    // 1. 先算最左边：5 > 10 为“假”(0)
+    // 2. 此时 && 触发“短路”：既然第一个已经是假，后面所有的 && 都不再计算
+    // 3. 结果直接判定为假，check_mark++ 根本不会被运行
+    
+    if (test_number > min_value && (check_mark++) && test_number < max_value) {
+        printf("这行不会被打印出来\n");
+    }
+
+    printf("验证结果：check_mark 的值依然是 %d，说明后面的代码被跳过了。\n", check_mark);
+
+    return 0;
+}
 ```
-这里优化之前的判断闰年的例子
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=OTc3OWIyYTFjYzA1N2Y0NzBmZWNiNTQ2ZTRhZmUyODhfVFJKdml3bkVZQzVwUG5va2NDVEU5NDhSdkhGNWJ5V2JfVG9rZW46WERlT2JEMldob25aS2V4clBJR2Nnc3RxbmNkXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+**`&&`****的短路运算：**
+
+  介绍完`&&`运算符的基本定义和基本运算规则后，接下来即将进入`&&`最为核心的知识点--短路运算。这是`&&`的**灵魂特性**，也是 C 语言逻辑与的重点、面试高频考点和实际开发的核心实用技巧。
+
+  短路求值的规则：`&&`会**从左到右依次计算左右两个操作数 / 表达式**，**一旦左边表达式判定为假，直接跳过右边的表达式，不再执行**，最终结果直接为假。这是因为`&&`的规则是 “全真才真”，如果左边已经是假，无论右边是真还是假，最终结果一定是假，无需再计算右边，这是 C 语言的**编译器优化行为**，所有标准 C 编译器都遵循。
+
+  接下来读者可以通过实际举例进行对比，以此来直观的感受短路运算的规则。
+
+```C++
+#include <stdio.h>
+
+int main()
+{
+    // 定义一个计数器，用来当作“小白鼠”
+    // 如果它变了，说明代码执行了；如果没变，说明被短路跳过了
+    int test_count = 0;
+
+    // --- 实验组 A：正常运算（不短路） ---
+    // 逻辑：左边 (10 > 5) 是真，计算机必须继续去算右边
+    // 预期：右边的 (test_count++) 会被执行，test_count 变成 1
+    
+    // 规范：if 上下留空行，运算符两边加空格
+    if ((10 > 5) && (test_count++) > 0) {
+        // 这个大括号里的内容不重要，我们只关心条件里的 ++ 执行了没
+    }
+
+    printf("实验组A结果：左边为真，右边执行。count 变成了 %d\n", test_count);
+
+    // --- 实验组 B：短路运算（核心重点） ---
+    // 逻辑：左边 (10 > 100) 是假
+    // 规则：根据 && 短路特性，直接判死刑，右边的 (test_count++) 被无视
+    // 预期：test_count 应该保持为 1，不会变成 2
+    
+    if ((10 > 100) && (test_count++) > 0) {
+        printf("这行绝对不会打印\n");
+    }
+
+    // 规范：逗号后加空格
+    printf("实验组B结果：左边为假，右边跳过。count 依然是 %d (未变)\n", test_count);
+
+    return 0;
+}
 ```
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=YzMyOTg3ZDM2Mzc1ZDEyNmM4ZTIzNzBiNmUyMDgxNmVfZXZjc21iUjdZdXhDMklEWlBPME9DbkdQNFlJV0MxQktfVG9rZW46UUYwV2JtdG85b0VLTEt4VzB5Y2M4dG03bmtnXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+值得注意的是，C语言中有固定的运算优先级，结合`&&`运算符的左结合性，`&&`的运算顺序需要同时考虑以上两者。
+
+**优先级**：`!`（逻辑非） > 算术运算符 > 关系运算符> `&&`（逻辑与） > `||`（逻辑或） > 赋值运算符（=）  **简记为：非算数，关系与，或赋值。**
+
+  由于逻辑或`||`运算符暂且未进行讲解，有关C语言运算顺序的实例在章末会具体提及。这里不进行赘述。
 
 ### 4.3逻辑或运算符
 
+- **符号表达：**C语言通常采用`||`的符号表示逻辑或。
+- **运算类型：**和逻辑与的类型相同，均为双目运算符，需要左右两个操作数(表达式)。
+- **核心语义:** 只要两个操作数有一个为真，结果就为真；只有两个都为假，结果才为假（“一真即真，全假才假”）。
+- **真值表：**
+
+| A(操作数1） | B(操作数2) | A\|\|B(结果) |
+| ----------- | ---------- | ------------ |
+| 0(假）      | 0(假）     | 0(假）       |
+| 0(假）      | 非0(真)    | 1(真)        |
+| 非0(真)     | 0(假）     | 1(真)        |
+| 非0(真)     | 非0(真)    | 1(真)        |
+
+- 简单示例：
+
+```C++
+#include <stdio.h>
+int main() {
+    printf("%d\n", 0 || 0);   // 0（全假）
+    printf("%d\n", 0 || 5);   // 1（一真）
+    printf("%d\n", -3 || 0);  // 1（一真，负数非0为真）
+    printf("%d\n", 2 || 7);   // 1（都真）
+    return 0;
+}
+```
+
+**注意:**非 0 即真，不管是正数、负数，只要不是 0，在逻辑运算中都被当作 “真” 处理。
+
+- **短路求值：**逻辑或(`||`)的短路规则实质同逻辑与(`&&`)类似，逻辑或`||`的执行顺序是**从左到右**，当左边的操作数为真（非 0）时，右边的操作数会被直接跳过（不执行），因为此时已经能确定整体结果为真，无需再判断右边。 
+	- 对于短路求值的实际影响，我们同样进行简单举例论证。
+	- ```C
+		#include <stdio.h>
+		int main() {
+		    int a = 1;
+		    if (a || ++a) {// 左边a=1为真，右边++a被短路，不执行
+		        printf("a = %d\n", a);  // 输出a=1，而非2
+		    }
+		    return 0;
+		}
+		```
+
+​     可以看到，在进行计算过程中，计算机已经判断`||`的左侧操作数a=1为真，则直接跳过右侧的自增表达式进入下一行代码。代码的结果可能会导致逻辑错误，由此对于短路规则应当在代码编写中加以注意
+
+- 运算优先级和结合性
+
+​      逻辑或同样为左结合性，即多个`||`连续出现时，从左到右依次计算：
+
+​      `a || b || c` 等价于 `(a || b) || c`（先算` a||b`，结果再和 c 做逻辑或运算)。
+
 ## 5. switch语句
+
+if语句是一种一分为二的语句，虽可以用`else if`实现多分支，但本质上也是将剩下部分一分为二，C语言提供了另外一种分支语法——`switch`语法，`switch`语法可以解决实际应用的多分支结构。
+
+#### 5.1switch语句的语法结构
+
+#### 5.2 switch语句的执行流程
+
+例题:
+
+```C++
+#include <stdio.h>
+
+int main() {
+    int score;
+
+    printf("请输入成绩 (0-100): ");
+    scanf("%d", &score);
+
+    // 逻辑判断：将百分制转换为 10 个等级区间
+    // 技巧：score / 10 可以将 90-100 分都划入 case 9 和 case 10
+    switch (score / 10) {
+        case 10: // 处理 100 分的情况
+        case 9:  // 匹配score=90~99的情况（90~99/10=9）
+            printf("优秀\n");
+            break;  // 跳出switch语句，不再执行后续分支
+        case 8:  // 匹配score=80~89的情况
+            printf("良好\n");
+            break;
+        case 7:  // 匹配score=70~79的情况
+        case 6:  // 匹配score=60~69的情况
+            printf("及格\n");
+            break;
+        default:  // 匹配所有未被上述case列举的情况（即score/10=0~5，对应0~59分）
+            printf("不及格\n");
+            break;
+    }
+    return 0;
+}
+```
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=MDRiZjc3MWJkNThjMzY4NzhjZmQ1ZDY1M2ZkNmQ2YTdfNXJKb0RVd05GYlpJY296YXlzUlFtdWNwcnhZdVFLNHBfVG9rZW46TUYxdWJJQUx2b3dLc3p4dWJJQ2NQUUVkbnJoXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+执行 `score / 10` 时，C 语言会自动丢弃小数。例如 95 分和 100 分除以 10 后，分别变为整数 `9` 和 `10`，
+
+下面同理。`default` 负责处理上述没有出现的情况，例如`if-else`语句中的`else`
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjRjYThiZGRmYWUxNzk5NjkwYmFiZTcyY2VlMzhjYmZfVFZtR3BxUXJFUlpJMFFKeFZMdmdkbmhvN3pqc05STkRfVG9rZW46UDFQRmJhSHppb21LVWR4R2thZGMydGJqblhkXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+## 6.综合应用
+
+（代码）出题，课后练习，本章的题下面这些是书上的一部分题，你们可以参考参考
+
+3题挺不错的，可以出一个这样的
+
+6题也很好
+
+十道左右，由易到难
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=OWIxMDc1MjQ4OGNkZjcxMzEyZmYwN2Y5ZjFiOTBhMWRfT2hTU0JRUHEwZWw0d2U3Yk54V2RyTDdTTllDTzZYbVhfVG9rZW46VEY0OGJMS3JDb2dxMml4ZWhqN2NGcU1QblhGXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTI0ZjFjNjZlZmZkMzQxZDcxYWRmZjk2MDY3YTU1MmFfUWlac2RaQlVla3R0eW4zd1BWVllHSG1yZFgwOTExdm9fVG9rZW46SWtkTGJkMVlTb1ZkZUZ4SW04NGNldVdYblVnXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+### 1.在 C 语言中，已知 `int a = 5, b = -2;`，请判断下列算术/逻辑表达式的值（真输出 1，假输出 0）: (1) `a && b`
+
+(2) `a + b > 0 && a > 5`
+
+(3) `!a || b < 0`
+
+(4) `4 + 3 > 6 > 5` 
+
+解析：
+
+**（1）****`a && b`**
+
+- **答案：** **1 (真)**
+- **解析：** 在 C 语言中，数值 `0` 代表“假”，**所有非 0 的数值**（包括负数）都代表“真”。已知 `a = 5`（真），`b = -2`（真），由于逻辑与运算 `&&` 要求两边均为真，结果才为真，因此 `1 && 1` 结果为 `1`。
+
+**（2）** **`a + b > 0 && a > 5`**
+
+- **答案：** **0 (假)**
+- **解析：** 1.  根据优先级，先计算算术运算 `a + b`，结果为 `3`。 2.  计算关系运算 `3 > 0`，结果为 `1`（真）。 3.  计算右侧关系运算 `a > 5`（即 `5 > 5`），结果为 `0`（假）。 4.  最后执行 `1 && 0`，逻辑与运算只要有一边为假，结果即为 `0`。
+
+**（3）** **`!a || b < 0`**
+
+- **答案：** **1 (真)**
+- **解析：**
+	- 先执行逻辑非 `!a`。由于 `a` 是 `5`（真），取反后 `!a` 变为 `0`（假）。
+	- 再计算关系运算 `b < 0`（即 `-2 < 0`），结果为 `1`（真）。
+	- 最后执行逻辑或 `0 || 1`。逻辑或运算只要有一边为真，结果即为 `1`。
+
+**（4）** **`4 + 3 > 6 > 5`**
+
+- **答案：** **0 (假)**
+- **解析：** 
+	- 先算 `4 + 3` 得到 `7`。
+	- 关系运算符 `>` 的结合性是从左到右。先计算 `7 > 6`，结果为 `1`（真）。
+	- **关键点：** 此时表达式变成了 `1 > 5`。
+	- `1` 显然不大于 `5`，所以最终结果为 `0`。
+
+### 2.请将下列 `if-else` 代码段改写为一行条件运算符（`? :`）表达式：
+
+```C
+if (x >= y) 
+    max = x;
+else 
+    max = y;
+```
+
+解析：
+
+```C
+max = (x >= y) ? x : y;
+```
+
+**语法结构**
+
+条件运算符的通用格式为： `表达式1 ? 表达式2 : 表达式3`
+
+- **表达式 1**：是一个逻辑判断（即 `if` 括号里的内容）。
+- **表达式 2**：如果“表达式 1”为**真**（非 0），则执行并返回这个值（即 `if` 分支的内容）。
+- **表达式 3**：如果“表达式 1”为**假**（0），则执行并返回这个值（即 `else` 分支的内容）。
+
+**执行逻辑对照**
+
+在你的代码段中：
+
+- **判定条件**是 `x >= y`。
+- 如果成立，`max` 应该等于 `x`。
+- 如果不成立，`max` 应该等于 `y`。
+
+所以合并后：`max = (条件) ? 成立时的值 : 不成立时的值;`
+
+### 3.表达式求值**：** 设 `int m = 1, n = 2, k = 3;`，求执行完下列表达式后，各变量的值：
+
+（1）`(m = k > n) && (n = k > m)`
+
+（2）`m + n > k && k == n + 1`
+
+解析：
+
+（1）：
+
+**m = 1**
+
+**n = 1**
+
+**k = 3**
+
+左半部分 **`(m = k > n)`****：**
+
+- 先计算关系运算 `k > n`（即 `3 > 2`），结果为 **1**（真）。
+- 再进行赋值运算 `m = 1`。此时，变量 `m` 的值由 1 变为 **1**。
+- 此时左半部分的值为 1（真）。
+
+右半部分 **`(n = k > m)`****：**
+
+- 注意！此时的 `m` 已经是刚才赋值后的 **1** 了。
+- 先计算 `k > m`（即 `3 > 1`），结果为 **1**（真）。
+- 再进行赋值运算 `n = 1`。此时，变量 `n` 的值由 2 变为 **1**。
+
+（2）：
+
+**m = 1**
+
+**n = 2**
+
+**k = 3**
+
+左半部分 **`m + n > k`****：**
+
+- 先算加法：`m + n` 等于 `1 + 2 = 3`。
+- 再算比较：`3 > 3`，结果为 **0**（假）。
+
+逻辑与 `&&` 的短路特性：因为左边为假，所以右边不会执行
+
+### 4.请写出下列代码执行后的输出结果：
+
+```C++
+int x = 2;
+switch (x) {
+    case 1: printf("Apple ");
+    case 2: printf("Banana ");
+    case 3: printf("Cherry ");
+    default: printf("End");
+}
+```
+
+解析：
+
+**Banana Cherry End**
+
+**为什么不是只输出 "Banana "？**
+
+在 C 语言的 `switch` 语句中，程序会根据 `x` 的值跳转到对应的 `case` 标签处开始执行。但是，**`case`** 仅仅是一个“入口标签”，它并不具备自动结束的功能。
+
+关键点：缺少 `break`
+
+- 当 `x = 2` 时，程序跳过 `case 1`，从 `case 2` 入口进入。
+- 执行完 `printf("Banana ");` 后，由于代码中**没有** **`break`** **语句**，程序不会跳出 `switch` 结构。
+- 它会像流水一样，“顺便”把后面所有的语句全部执行掉，直到遇到下一个 `break` 或者整个 `switch` 块结束。
+
+### 5.编写程序，输入 x，输出 y（要求保留 1 位小数）：
+
+- x < 0 时，y = |x|
+- 0 <= x < 10 时，y = sqrt(x)
+- 10 <= x < 20 时，y = x^2
+- x >= 20 时，y = x + 1
+
+解析：
+
+```C++
+#include <stdio.h>
+#include <math.h> // 使用 sqrt 和 fabs 函数必须包含此头文件
+
+int main() {
+    double x, y;
+
+    // 1. 输入数据
+    printf("请输入 x 的值：");
+    if (scanf("%lf", &x) != 1) {
+        printf("输入错误！\n");
+        return 1;
+    }
+
+    // 2. 分段逻辑判断
+    if (x < 0) {
+        y = fabs(x);       // 计算绝对值
+    } 
+    else if (x < 10) {     // 隐含条件：x >= 0
+        y = sqrt(x);       // 计算平方根
+    } 
+    else if (x < 20) {     // 隐含条件：x >= 10
+        y = x * x;         // 计算平方
+    } 
+    else {                 // 隐含条件：x >= 20
+        y = x + 1;
+    }
+
+    // 3. 输出结果，保留 1 位小数
+    printf("y = %.1f\n", y);
+
+    return 0;
+}
+```
+
+**为什么用** **`double`****？** 因为题目涉及 `sqrt`（平方根）和保留小数，使用浮点型（`float` 或 `double`）才能保证计算精度。在 C 语言中，`sqrt` 函数的返回值默认是 `double` 类型。
+
+**`fabs(x)`**：这是 `math.h` 库中用于求浮点数绝对值的函数。如果用 `abs()`，它通常用于整数，可能会导致精度丢失。
+
+**`sqrt(x)`**：计算二次方根。
+
+**`%.1f`**：这是控制输出的关键。`%f` 表示输出浮点数，`.1` 表示控制小数点后保留一位。
+
+![img](https://gcn59lcrd80x.feishu.cn/space/api/box/stream/download/asynccode/?code=MGI4YWVlNzQ1MzhhOGM3OWUxMjE3YjBkZTlmNzk5NTJfR1o3Q3Y3blRsZmhwZFNzcUpjWjVKWUMwd29BaExzTlpfVG9rZW46TlJJQmJkaXBZb0drSHB4a3VtRGNJRUtJbkdiXzE3Njk3ODE0OTE6MTc2OTc4NTA5MV9WNA)
+
+（记得删除）大致内容：一道if-else多分支题，一道else悬空判断题,一道实际应用题（嵌套）（if-else），一道if单分支的简单代码题，一道条件运算符的简单三数判断题
+
+### 给出一百分制整数成绩，要求输出成绩等级'A','B','C','D','E',90分以上为'A',80~89分为'B',70~79分为'C',60~69分为'D,60分以下为'E' ：
+
+解析：
+
+```C++
+#include <stdio.h>
+int main()
+{
+    //1.输入成绩
+    double score;
+    scanf("%lf", &score);
+    //if分支判断
+    if(score >= 90) {
+        printf("成绩等级：A");
+    }
+    else if(score >= 80) {
+        printf("成绩等级：B");
+    }
+    else if(score >= 70) {
+        printf("成绩等级：C");
+    }
+    else if(score >= 60) {
+        printf("成绩等级：D");
+    }
+    //只剩一种情况，使用else更简洁
+    else {
+        printf("成绩等级：E");
+    }
+    
+    return 0;
+}
+```
+
+**为什么要从高往低？**
+
+假如输入的成绩是92
+
+```C++
+    if(score >= 80) {
+        printf("成绩等级：B");
+    }
+    else if(score >= 90) {
+        printf("成绩等级：A");
+```
+
+运行后会发现同时输出了"成绩等级：B","成绩等级：A",很明显这是错误的
+
+原因是在判断出92 > 80后，继续向下判断出92 >90
+
+从高往低可以避免这种错误
+
+### 判断下列代码的输出结果：
+
+```C++
+    //60分以下的为“差”，80分以上的为“优秀”
+    int score=74;
+    
+    if(score >= 60)
+        if(score >= 80)
+            printf("优秀");
+    else
+        printf("差");
+```
+
+答案：差
+
+解析：为什么理应不输出任何内容的代码却输出了'差'，是因为这份代码出现了一个明显的问题————`else悬空问题`:
+
+C语言编译器不识别代码缩进（仅为可读性），else默认与离它最近、无对应else的if绑定，此规则为语法硬性规定，与编写意图无关。
+
+else默认与if(score >= 80)绑定，所以代码输出错误。
+
+纠正：
+
+```C++
+    int score=74;
+    
+    if(score >= 60) {
+        if(score >= 80) {
+            printf("优秀");
+        }
+    }
+    else {
+        printf("差");
+    }
+```
+
+给所有if/else语句添加大括号 {} ，明确代码块范围，让每个else正确的匹配对应的if，可以从根源避免悬空。
