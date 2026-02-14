@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\code"
   ],
-  "SelectedNode": "\\code",
+  "SelectedNode": "\\code\\test.c",
   "PreviewInSolutionExplorer": false
 }
